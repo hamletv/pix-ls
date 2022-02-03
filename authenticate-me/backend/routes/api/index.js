@@ -5,10 +5,17 @@ const { User } = require('../../db/models');
 const user = require('../../db/models/user.js');
 const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
+const sessionRouter = require('./session');
+const usersRouter = require('./users')
 
+
+router.use('/session', sessionRouter);
+router.use('/users', usersRouter);
+router.post('/test', (req, res) => {
+    res.json({ requestBody: req.body });
+});
+/*
 // TESTING MIDDLEWARE FUNCS CODE. REMOVE ONCE TESTS RESULTS OK
-
-
 // test token cookie route
 router.get('/set-token-cookie', asyncHandler(async (req, res) => {
     const user = await User.findOne({
@@ -36,7 +43,7 @@ router.get('/require-auth', requireAuth, (req, res) => {
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
 });
-
+*/
 
 
 module.exports = router;

@@ -1,8 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
-
-const { ValidatorsImpl } = require("express-validator/src/chain");
+const { Validator } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -13,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [4, 30],
         isNotEmail(value) { // custom validator?
-          if(ValidatorsImpl.isEmail(value)){
+          if(Validator.isEmail(value)){
             throw new Error('Cannot be an email.')
           }
         }
@@ -52,44 +51,43 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // associations can be defined here
   };
-  return User;
-};
+  // user model methods
+  User.prototype.toSafeObject = function() {
+    const { id, username, email } = this;
+    return { id, username, email };
+  };
 
-// user model methods
-User.prototype.toSafeObject = function() {
-  const { id, username, email } = this;
-  return { id, username, email };
-};
+  User.prototype.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.hashedPassword.toString());
+  };
 
-User.prototype.validatePassword = function(password) {
-  return bcrypt.compareSync(password, this.hashedPassword.toString());
-};
+  User.getCurrentUserById = async function(id) {
+    return await User.scope('currentUser').findByPk(id);
+  };
 
-User.getCurrentUserById = async function(id) {
-  return await User.scope('currentUser').findByPk(id);
-};
-
-User.login = async function({ credential, password }) {
-  const { Op } = require('sequelize');
-  const user = await User.scope('loginUser').findOne({
-    where: {
-      [Op.or]: {
-        username: credential,
-        email: credential
+  User.login = async function({ credential, password }) {
+    const { Op } = require('sequelize');
+    const user = await User.scope('loginUser').findOne({
+      where: {
+        [Op.or]: {
+          username: credential,
+          email: credential
+        }
       }
+    });
+    if(user && user.validatePassword(password)) {
+      return await User.scope('currentUser').findByPk(user.id);
     }
-  });
-  if(user && user.validatePassword(password)) {
-    return await User.scope('currentUser').findByPk(user.id);
-  }
-};
+  };
 
-User.signup = async function({ username, email, password }) {
-  const hashedPassword = bcrypt.hashSync(password);
-  const user = await User.create({
-    username,
-    email,
-    hashedPassword
-  });
-  return await User.scope('currentUser').findByPk(user.id);
+  User.signup = async function({ username, email, password }) {
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = await User.create({
+      username,
+      email,
+      hashedPassword
+    });
+    return await User.scope('currentUser').findByPk(user.id);
+  };
+  return User;
 };
