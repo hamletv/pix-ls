@@ -3,9 +3,9 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
-// const router = expressRouter();
 
 
+// login route - consider switching credential to username
 router.post('/', asyncHandler(async(req, res, next) => {
     const { credential, password } = req.body;
     const user = await User.login({ credential, password });
@@ -21,6 +21,12 @@ router.post('/', asyncHandler(async(req, res, next) => {
     return res.json({ user });
     })
 );
+
+// log out route
+router.delete('/', (req, res) => {
+    res.clearCookie('token');
+    return res.json({ message: 'success'});
+});
 
 
 
