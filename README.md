@@ -32,3 +32,14 @@ navigate to [http://localhost:3000](http://localhost:3000)
     
 10. Use the demo user account or create your own account to start using Pix-ls.
 
+11. Tech stack:
+    - React
+    - Redux
+    - Javascript
+    - HTML
+    - CSS
+    - Express
+    - Sequelize
+    - PostgreSQL
+    - Figma (wireframe)
+    - dbdiagram (db schema)
