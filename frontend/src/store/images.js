@@ -26,7 +26,7 @@ export const addImageThunk = (image) => async(dispatch) => {
     const response = await csrfFetch('/api/images/new', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(image)
     });
     if(response.ok){
         const image = await response.json();
@@ -44,16 +44,27 @@ export const getImagesThunk = () => async(dispatch) => {
         return images;
     }
 };
-/* ----- REDUCER ------ */
 
-const initialState = { cocktails = {} }
-export const imageReducer = (state = initialState, action)  => {
+/* ----- REDUCER ------ */
+const initialState = { images: {} }
+const imageReducer = (state = initialState, action)  => {
     switch (action.type) {
-      case ADD_IMAGE:
-        const newState = { ...state };
-        newState.images = { ...newState.images, [action.image.id]: action.image }
-        return newState;
+        case ADD_IMAGE: {
+            const newState = { ...state };
+            newState.images = { ...newState.images, [action.image.id]: action.image }
+            return newState;
+        }
+        case GET_IMAGES: {
+            const newState = { ...state };
+            const imagesList = {};
+            action.images.forEach((image) => (imagesList[image.id] = image));
+            newState.images = imagesList;
+            return newState;
+        }
       default:
         return state;
     }
 };
+
+
+export default imageReducer;
