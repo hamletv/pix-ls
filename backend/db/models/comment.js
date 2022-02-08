@@ -6,7 +6,16 @@ module.exports = (sequelize, DataTypes) => {
     comment: DataTypes.STRING
   }, {});
   Comment.associate = function(models) {
-    // associations can be defined here
+    // associations
+    Comment.belongsTo(models.User, {
+      as: 'users',
+      foreignKey: 'userId'
+    });
+
+    Comment.belongsTo(models.Image, {
+      as: 'comments',
+      foreignKey: 'imageId'
+    });
   };
   return Comment;
 };
