@@ -2,48 +2,93 @@ import { csrfFetch } from "./csrf";
 
 const ADD_IMAGE = 'images/addImage';
 const GET_IMAGES = 'images/getImages';
-// const UPDATE_IMAGE = 'images/updateImage';
-// const DELETE_IMAGE = 'images/deleteImage';
+const GET_IMAGE = 'images/getSingleImage';
+const DELETE_IMAGE = 'images/deleteImage';
+const EDIT_IMAGE = 'images/editImage'
 
 
 /* ----- ACTIONS ------ */
-export const addImage = (image) => {
+export const addImageAC = (image) => {
     return {
       type: ADD_IMAGE,
-      image
+      payload: { image }
     };
   };
 
-export const getImages = (images) => {
+export const getImagesAC = (images) => {
     return {
       type: GET_IMAGES,
-      images
+      payload: { images }
+    };
+};
+
+export const getImageAC = (id) => {
+    return {
+      type: GET_IMAGE,
+      id
+    };
+};
+
+export const editImageAC = (id) => {
+    return {
+      type: EDIT_IMAGE,
+      id
+    };
+};
+
+export const removeImageAC = (id) => {
+    return {
+      type: DELETE_IMAGE,
+      id
     };
 };
 
 /* ----- THUNK ------ */
-export const addImageThunk = (image) => async(dispatch) => {
-    const response = await csrfFetch('/api/images/new', {
+export const addImage = (image) => async(dispatch) => {
+    const response = await csrfFetch('/api/images/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(image)
     });
     if(response.ok){
         const image = await response.json();
-        dispatch(addImage(image));
+        dispatch(addImageAC(image));
         return image;
     }
 };
 
-export const getImagesThunk = () => async(dispatch) => {
+export const getImages = (images) => async(dispatch) => {
     const response = await csrfFetch('/api/images');
 
     if(response.ok){
         const images = await response.json();
-        dispatch(getImages(images));
+        dispatch(getImagesAC(images));
         return images;
     }
 };
+
+export const updateImage = ({ id, description }) => async(dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(description)
+    });
+    if(response.ok) {
+        const image = await response.json();
+        dispatch(editImageAC(image));
+        return image;
+    }
+};
+
+export const getSingleImage = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`);
+    const { image } = await response.json();
+    if(response.ok){
+        dispatch(getImageAC(image));
+    }
+    return image;
+};
+
 
 /* ----- REDUCER ------ */
 const initialState = { images: {} }
@@ -59,6 +104,20 @@ const imageReducer = (state = initialState, action)  => {
             const imagesList = {};
             action.images.forEach((image) => (imagesList[image.id] = image));
             newState.images = imagesList;
+            return newState;
+        }
+        case GET_IMAGE: {
+            const newState = { ...state };
+            newState.images = { [action.image.id]: action.image };
+            return newState;
+        }
+        // case EDIT_IMAGE: {
+        //     const newState = { ...state };
+
+        // }
+        case DELETE_IMAGE: {
+            const newState = { ...state };
+            delete newState[action.image];
             return newState;
         }
       default:
