@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.use(requireAuth);
 
-const commentValidators = [
-    check('content')
-      .exists({ checkFalsy: true})
-      .withMessage('Please provide content for your comment.'),
-    handleValidationErrors,
-];
+// const commentValidators = [
+//     check('content')
+//       .exists({ checkFalsy: true})
+//       .withMessage('Please provide content for your comment.'),
+//     handleValidationErrors,
+// ];
 
 // get comments
 router.get('/:imageId/comments', asyncHandler (async (req, res) => {
@@ -24,16 +24,16 @@ router.get('/:imageId/comments', asyncHandler (async (req, res) => {
     res.json(comments);
 }));
 
-// add comment
-router.post('/:imageId/comments', commentValidators, asyncHandler (async(req, res) => {
+// add comment - add comment validators
+router.post('/:imageId/comments', asyncHandler (async(req, res) => {
     const { userId, imageId, comment } = req.body;
     const { id } = await Comment.create({ userId, imageId, comment });
     const imageComment = await Comment.findByPk(id);
     res.json(imageComment);
 }));
 
-// edit comment
-router.put('/:commentId', commentValidators, asyncHandler (async(req, res) => {
+// edit comment - add comment validators
+router.put('/:commentId', asyncHandler (async(req, res) => {
     const id = parseInt(req.params.commentId, 10);
     const { comment } = req.body;
     const singleComment = await Comment.findByPk(id, { include: User });
