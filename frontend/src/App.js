@@ -4,6 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import SignupFormPage from './components/SignupFormPage';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
+import LoginFormPage from './components/LoginFormPage';
+import SplashPage from './components/SplashPage/SplashPage';
 
 
 function App() {
@@ -19,9 +21,24 @@ function App() {
     <Navigation isLoaded={isLoaded} />
     {isLoaded && (
       <Switch>
+        <Route path='/'>
+          <SplashPage />
+        </Route>
         <Route path='/signup'>
           <SignupFormPage />
         </Route>
+        <Route path='/login'>
+          <LoginFormPage />
+        </Route>
+        {/* <Route path='/images'>
+          <AllImages />
+        </Route>
+        <Route path='/images/:id'>
+          <ImagePage />
+        </Route>
+        <Route path='/images/new'>
+          <AddNewImage />
+        </Route> */}
       </Switch>
     )}
     </>
