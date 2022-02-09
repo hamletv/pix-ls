@@ -21,11 +21,18 @@ router.post('/', asyncHandler (async (req, res) => {
     return res.json(newImage);
 }));
 
-router.get('/:id', asyncHandler (async (req, res) => {
-    const imageId = parseInt(req.params.id, 10);
-    const image = await Image.findByPk(id);
+router.get('/:pixId', asyncHandler (async (req, res) => {
+    const imageId = parseInt(req.params.pixId, 10);
+    const image = await Image.findByPk(imageId);
     res.json(image);
 }));
+
+router.delete('/:pixId', asyncHandler (async (req, res) => {
+    const imageId = parseInt(req.params.pixId, 10);
+    const image = await Image.findByPk(imageId);
+    await image.destroy();
+    return res.json({ message: 'Image deleted' });
+}))
 
 
 module.exports = router;
