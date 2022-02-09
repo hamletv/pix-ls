@@ -8,6 +8,8 @@ const { Image } = require('../../db/models');
 const router = express.Router();
 
 
+router.use(requireAuth);
+
 router.get('/', asyncHandler (async (req, res) => {
     const images = await Image.findAll({});
     await res.json(images);
