@@ -6,11 +6,12 @@ const user = require('../../db/models/user.js');
 const { restoreUser } = require('../../utils/auth.js');
 const { requireAuth } = require('../../utils/auth.js');
 const sessionRouter = require('./session');
-const usersRouter = require('./users')
-
+const usersRouter = require('./users');
+const imagesRouter = require('./images');
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
+router.use('/images', imagesRouter);
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
 });
