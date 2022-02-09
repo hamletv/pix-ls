@@ -14,31 +14,40 @@ const commentValidators = [
     handleValidationErrors,
 ];
 
-
 // get comments
-router.get('/:pixId/comments', asyncHandler (async (req, res) => {
-    const imageId = parseInt(req.params.pixId, 10);
+router.get('/:imageId/comments', asyncHandler (async (req, res) => {
+    const imageId = parseInt(req.params.imageId, 10);
     const comments = await Comment.findAll({
         where: { imageId },
         include: User
     });
-    await res.json(comments);
+    res.json(comments);
 }));
 
 // add comment
-router.post('/:pixId/comments', commentValidators, asyncHandler (async (req, res) => {
+router.post('/:imageId/comments', commentValidators, asyncHandler (async(req, res) => {
     const { userId, imageId, comment } = req.body;
     const { id } = await Comment.create({ userId, imageId, comment });
-    const pixComment = await Comment.findByPk(id);
-    res.json(pixComment);
+    const imageComment = await Comment.findByPk(id);
+    res.json(imageComment);
+}));
+
+// edit comment
+router.put('/:commentId', commentValidators, asyncHandler (async(req, res) => {
+    const id = parseInt(req.params.commentId, 10);
+    const { comment } = req.body;
+    const singleComment = await Comment.findByPk(id, { include: User });
+
+    await singleComment.update({ comment });
+    res.json(singleComment);
 }));
 
 // delete comment
-router.delete('/:pixId/comments/:commentId', asyncHandler (async (req, res) => {
-    const commentId = parseInt(req.params.commentId, 10);
-    const comment = await Comment.findByPk(commentId);
+router.delete('/:commentId', asyncHandler (async(req, res) => {
+    const id = parseInt(req.params.commentId, 10);
+    const comment = await Comment.findByPk(id);
     await comment.destroy();
-    return res.json({ message: `Comment ${commentId} deleted` });
+    return res.json({ message: `Comment ${id} deleted` });
 }));
 
 
