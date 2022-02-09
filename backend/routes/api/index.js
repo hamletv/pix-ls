@@ -8,10 +8,15 @@ const { requireAuth } = require('../../utils/auth.js');
 const sessionRouter = require('./session');
 const usersRouter = require('./users');
 const imagesRouter = require('./images');
+const commentsRouter = require('./comments');
+const albumsRouter = require('./albums');
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/images', imagesRouter);
+router.use('/comments', commentsRouter);
+router.use('/albums', albumsRouter);
+
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
 });

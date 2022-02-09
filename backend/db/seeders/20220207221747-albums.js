@@ -5,15 +5,21 @@ module.exports = {
       return queryInterface.bulkInsert('Albums', [
       {
         userId: 1,
-        title: 'Nature Album'
+        title: 'Nature Album',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         userId: 1,
-        title: 'Home Album'
+        title: 'Home Album',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         userId: 2,
-        title: 'Eating, food and drinks'
+        title: 'Eating, food and drinks',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },
