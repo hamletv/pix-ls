@@ -6,7 +6,6 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
-import AllImages from './components/Images/Images';
 import ImageList from './components/ImageList';
 
 function App() {
@@ -25,7 +24,7 @@ function App() {
         <Route exact path='/'>
           <SplashPage />
         </Route>
-        <Route exact path='/signup'>
+        <Route path='/signup'>
           <SignupFormPage />
         </Route>
         <Route path='/login'>
