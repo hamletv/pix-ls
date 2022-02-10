@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
+import AllImages from './components/Images/Images';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     <Navigation isLoaded={isLoaded} />
     {isLoaded && (
       <Switch>
-        <Route path='/'>
+        <Route exact path='/'>
           <SplashPage />
         </Route>
         <Route path='/signup'>
@@ -30,10 +31,10 @@ function App() {
         <Route path='/login'>
           <LoginFormPage />
         </Route>
-        {/* <Route path='/images'>
+        <Route path='/images'>
           <AllImages />
         </Route>
-        <Route path='/images/:id'>
+        {/* <Route path='/images/:id'>
           <ImagePage />
         </Route>
         <Route path='/images/new'>
