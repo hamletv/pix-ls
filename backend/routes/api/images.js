@@ -17,15 +17,15 @@ router.get('/', asyncHandler (async (req, res) => {
     await res.json(images);
 }));
 
-// add image
-router.post('/add', asyncHandler, restoreUser (async (req, res) => {
+// add image - add restoreUser midware
+router.post('/add', asyncHandler (async (req, res) => {
     const { imageUrl, description } = req.body;
-    const newImage = await Image.create({ imageUrl, description, userId: req.user.id });
+    const newImage = await Image.create({ imageUrl, description });
     return res.json(newImage);
 }));
 
 // get image
-router.get('/:imageId', asyncHandler (async (req, res, next) => {
+router.get('/:imageId', asyncHandler (async(req, res, next) => {
     const imageId = parseInt(req.params.imageId, 10);
     const image = await Image.findByPk(imageId);
 
