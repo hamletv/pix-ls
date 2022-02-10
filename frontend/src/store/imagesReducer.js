@@ -29,10 +29,12 @@ export const getImageAC = (image) => {
     };
 };
 
-export const editImageAC = (image) => {
+export const editImageAC = (imageUrl, description) => {
     return {
       type: EDIT_IMAGE,
-      image
+      image,
+      imageUrl,
+      description
     };
 };
 
@@ -83,9 +85,13 @@ export const updateImage = ({ id, description, imageUrl }) => async(dispatch) =>
 };
 
 export const getSingleImage = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${id}`);
-    const { image } = await response.json();
+    const response = await csrfFetch(`/api/images/${id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify()
+    });
     if(response.ok){
+        const { image } = await response.json();
         dispatch(getImageAC(image));
     }
     return image;
@@ -109,11 +115,11 @@ const imageReducer = (state = initialState, action)  => {
             newState.entries = { ...newState.entries, [action.newImage.id]: action.newImage }
             return newState;
         }
-        // case GET_IMAGE: {
-        //     newState = { ...state };
-        //     newState.images = { [action.image.id]: action.image };
-        //     return newState;
-        // }
+        case GET_IMAGE: {
+            newState = { ...state };
+            newState.entries = { [action.image.id]: action.image };
+            return newState;
+        }
         case EDIT_IMAGE: {
             newState = { ...state };
             newState.entries = { ...newState.entries, [action.image.id]: action.image }

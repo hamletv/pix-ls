@@ -49,8 +49,8 @@ const UpdateImage = () => {
                 placeholder="Image URL"
                 name="imageUrl"
                 />
-                <button type="submit">Edit photo</button>
-                <button type="submit">Cancel edit</button>
+                <button type="submit" onClick={handleSubmit}>Edit photo</button>
+                <button type="submit" onClick={cancelUpdate}>Cancel edit</button>
             </form>
         </div>
     );
