@@ -69,11 +69,11 @@ export const getImages = () => async(dispatch) => {
     return response;
 };
 
-export const updateImage = ({ id, description }) => async(dispatch) => {
+export const updateImage = ({ id, description, imageUrl }) => async(dispatch) => {
     const response = await csrfFetch(`/api/images/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(description)
+        body: JSON.stringify(description, imageUrl)
     });
     if(response.ok) {
         const image = await response.json();
@@ -114,9 +114,11 @@ const imageReducer = (state = initialState, action)  => {
         //     newState.images = { [action.image.id]: action.image };
         //     return newState;
         // }
-        // case EDIT_IMAGE: {
-        //     newState = { ...state };
-
+        case EDIT_IMAGE: {
+            newState = { ...state };
+            newState.entries = { ...newState.entries, [action.image.id]: action.image }
+            return newState;
+        }
         // }
         // case DELETE_IMAGE: {
         //     newState = { ...state };

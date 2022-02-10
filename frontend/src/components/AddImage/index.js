@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addImage } from "../../../store/imagesReducer";
+import { addImage } from "../../store/imagesReducer";
 // import './AddImage.css';
 
 const AddImage = () => {
@@ -44,6 +44,8 @@ const AddImage = () => {
                 <button type="submit">Add photo</button>
             </form>
         </div>
-    )
+    );
+};
 
-}
+
+export default AddImage;

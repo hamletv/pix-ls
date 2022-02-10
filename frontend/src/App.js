@@ -7,6 +7,9 @@ import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
 import ImageList from './components/ImageList';
+import AddImage from './components/AddImage';
+import UpdateImage from './components/UpdateImage';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -30,15 +33,18 @@ function App() {
         <Route path='/login'>
           <LoginFormPage />
         </Route>
+        <Route path='/images/add'>
+          <AddImage />
+        </Route>
         <Route path='/images'>
           <ImageList />
         </Route>
-        {/* <Route path='/images/:id'>
-          <ImagePage />
+        <Route path='/images/:id'>
+          <UpdateImage />
         </Route>
-        <Route path='/images/new'>
-          <AddNewImage />
-        </Route> */}
+        <Route>
+          <h1>Page Not Found</h1>
+        </Route>
       </Switch>
     )}
     </>
