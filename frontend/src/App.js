@@ -6,8 +6,11 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
-import AllImages from './components/Images/Images';
 import ImageList from './components/ImageList';
+import AddImage from './components/AddImage';
+import UpdateImage from './components/UpdateImage';
+import SingleImage from './components/SingleImage';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -25,21 +28,27 @@ function App() {
         <Route exact path='/'>
           <SplashPage />
         </Route>
-        <Route exact path='/signup'>
+        <Route path='/signup'>
           <SignupFormPage />
         </Route>
         <Route path='/login'>
           <LoginFormPage />
         </Route>
+        <Route path='/images/add'>
+          <AddImage />
+        </Route>
         <Route path='/images'>
           <ImageList />
         </Route>
-        {/* <Route path='/images/:id'>
-          <ImagePage />
+        <Route path='/images/:id'>
+          <SingleImage />
         </Route>
-        <Route path='/images/new'>
-          <AddNewImage />
-        </Route> */}
+        <Route path='/images/:id/edit'>
+          <UpdateImage />
+        </Route>
+        <Route>
+          <h1>404: Page Not Found</h1>
+        </Route>
       </Switch>
     )}
     </>

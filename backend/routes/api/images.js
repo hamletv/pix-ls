@@ -3,11 +3,12 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User } = require('../../db/models')
+const { User } = require('../../db/models');
 const { Image } = require('../../db/models');
+const { restoreUser } = require('../../utils/auth')
 const router = express.Router();
 
-router.use(requireAuth);
+// router.use(requireAuth);
 
 // get all images
 router.get('/', asyncHandler (async (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', asyncHandler (async (req, res) => {
     await res.json(images);
 }));
 
-// add image
+// add image - add restoreUser midware
 router.post('/add', asyncHandler (async (req, res) => {
     const { imageUrl, description } = req.body;
     const newImage = await Image.create({ imageUrl, description });
@@ -24,7 +25,7 @@ router.post('/add', asyncHandler (async (req, res) => {
 }));
 
 // get image
-router.get('/:imageId', asyncHandler (async (req, res, next) => {
+router.get('/:imageId', asyncHandler (async(req, res, next) => {
     const imageId = parseInt(req.params.imageId, 10);
     const image = await Image.findByPk(imageId);
 
@@ -39,12 +40,17 @@ router.get('/:imageId', asyncHandler (async (req, res, next) => {
 }));
 
 // edit image
-router.put('/:imageId', asyncHandler (async(req, res) => {
-    const imageId = parseInt(req.params.imageId, 10);
-    const { imageUrl, description } = req.body;
-    const image = await Image.findByPk(imageId);
-    await image.update({ imageUrl, description });
-    res.json({ image });
+router.put('/:id', asyncHandler (async(req, res) => {
+    const id = parseInt(req.params.id, 10);
+    const image = await Image.findByPk(id);
+    await image.update({
+        id: req.body.image.id,
+        userId: req.body.image.userId,
+        imageUrl: req.body.image.imageUrl,
+        description: req.body.image.description
+    });
+    await image.save();
+    return res.json(image);
 }))
 
 // delete image
