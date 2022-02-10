@@ -29,7 +29,7 @@ export const getImageAC = (image) => {
     };
 };
 
-export const editImageAC = (imageUrl, description) => {
+export const editImageAC = (image, imageUrl, description) => {
     return {
       type: EDIT_IMAGE,
       image,
@@ -80,8 +80,8 @@ export const updateImage = ({ id, description, imageUrl }) => async(dispatch) =>
     if(response.ok) {
         const image = await response.json();
         dispatch(editImageAC(image));
-        return image;
     }
+    return response;
 };
 
 export const getSingleImage = (id) => async (dispatch) => {
@@ -94,7 +94,7 @@ export const getSingleImage = (id) => async (dispatch) => {
         const { image } = await response.json();
         dispatch(getImageAC(image));
     }
-    return image;
+    return response;
 };
 
 
