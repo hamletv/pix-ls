@@ -7,7 +7,7 @@ import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
 import AllImages from './components/Images/Images';
-
+import ImageList from './components/ImageList';
 
 function App() {
   const dispatch = useDispatch()
@@ -25,14 +25,14 @@ function App() {
         <Route exact path='/'>
           <SplashPage />
         </Route>
-        <Route path='/signup'>
+        <Route exact path='/signup'>
           <SignupFormPage />
         </Route>
         <Route path='/login'>
           <LoginFormPage />
         </Route>
         <Route path='/images'>
-          <AllImages />
+          <ImageList />
         </Route>
         {/* <Route path='/images/:id'>
           <ImagePage />

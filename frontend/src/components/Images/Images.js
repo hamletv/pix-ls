@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getImageAC, getImages } from "../../store/images";
+import { getImageAC, getImages } from "../../store/imagesReducer";
 import { NavLink } from "react-router-dom";
 
 const AllImages = () => {
