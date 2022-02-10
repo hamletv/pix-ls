@@ -5,7 +5,7 @@ import imageReducer from './images';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  image: imageReducer
+  imageState: imageReducer
 });
 
 let enhancer;

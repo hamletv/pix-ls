@@ -8,10 +8,10 @@ const EDIT_IMAGE = 'images/editImage'
 
 
 /* ----- ACTIONS ------ */
-export const addImageAC = (image) => {
+export const addImageAC = (newImage) => {
     return {
       type: ADD_IMAGE,
-      image
+      newImage
     };
   };
 
@@ -22,49 +22,51 @@ export const getImagesAC = (images) => {
     };
 };
 
-export const getImageAC = (id) => {
+export const getImageAC = (image) => {
     return {
       type: GET_IMAGE,
-      id
+      image
     };
 };
 
-export const editImageAC = (id) => {
+export const editImageAC = (image) => {
     return {
       type: EDIT_IMAGE,
-      id
+      image
     };
 };
 
-export const removeImageAC = (id) => {
+export const removeImageAC = (image) => {
     return {
       type: DELETE_IMAGE,
-      id
+      image
     };
 };
 
 /* ----- THUNK ------ */
-export const addImage = (image) => async(dispatch) => {
+export const addImage = (payload) => async(dispatch) => {
     const response = await csrfFetch('/api/images/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(image)
+        body: JSON.stringify(payload)
     });
     if(response.ok){
-        const image = await response.json();
-        dispatch(addImageAC(image));
-        return image;
+        const newImage = await response.json();
+        dispatch(addImageAC(newImage));
+        // return newImage;
     }
+    return response
 };
 
-export const getImages = (images) => async(dispatch) => {
+export const getImages = () => async(dispatch) => {
     const response = await csrfFetch('/api/images');
 
     if(response.ok){
         const images = await response.json();
         dispatch(getImagesAC(images));
-        return images;
+        // return images;
     }
+    return response;
 };
 
 export const updateImage = ({ id, description }) => async(dispatch) => {
@@ -91,35 +93,36 @@ export const getSingleImage = (id) => async (dispatch) => {
 
 
 /* ----- REDUCER ------ */
-const initialState = { images: {} }
+const initialState = { entries: {} }
 const imageReducer = (state = initialState, action)  => {
+    let newState;
     switch (action.type) {
-        case ADD_IMAGE: {
-            const newState = { ...state };
-            newState.images = { ...newState.images, [action.image.id]: action.image }
-            return newState;
-        }
         case GET_IMAGES: {
             const newState = { ...state };
-            const imagesList = {};
-            action.images.forEach((image) => (imagesList[image.id] = image));
-            newState.images = imagesList;
+            const entries = {};
+            action.images.forEach(image => (entries[image.id] = image));
+            newState.entries = entries;
             return newState;
         }
-        case GET_IMAGE: {
-            const newState = { ...state };
-            newState.images = { [action.image.id]: action.image };
+        case ADD_IMAGE: {
+            newState = { ...state };
+            newState.entries = { ...newState.entries, [action.newImage.id]: action.newImage }
             return newState;
         }
+        // case GET_IMAGE: {
+        //     newState = { ...state };
+        //     newState.images = { [action.image.id]: action.image };
+        //     return newState;
+        // }
         // case EDIT_IMAGE: {
-        //     const newState = { ...state };
+        //     newState = { ...state };
 
         // }
-        case DELETE_IMAGE: {
-            const newState = { ...state };
-            delete newState[action.image];
-            return newState;
-        }
+        // case DELETE_IMAGE: {
+        //     newState = { ...state };
+        //     delete newState[action.image];
+        //     return newState;
+        // }
       default:
         return state;
     }
