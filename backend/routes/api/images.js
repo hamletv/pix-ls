@@ -12,6 +12,7 @@ router.use(requireAuth);
 // get all images
 router.get('/', asyncHandler (async (req, res) => {
     const images = await Image.findAll({});
+    console.log(images)
     await res.json(images);
 }));
 
