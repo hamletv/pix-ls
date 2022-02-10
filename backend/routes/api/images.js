@@ -3,11 +3,12 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User } = require('../../db/models')
+const { User } = require('../../db/models');
 const { Image } = require('../../db/models');
+const { restoreUser } = require('../../utils/auth')
 const router = express.Router();
 
-router.use(requireAuth);
+// router.use(requireAuth);
 
 // get all images
 router.get('/', asyncHandler (async (req, res) => {
@@ -17,9 +18,9 @@ router.get('/', asyncHandler (async (req, res) => {
 }));
 
 // add image
-router.post('/add', asyncHandler (async (req, res) => {
+router.post('/add', asyncHandler, restoreUser (async (req, res) => {
     const { imageUrl, description } = req.body;
-    const newImage = await Image.create({ imageUrl, description });
+    const newImage = await Image.create({ imageUrl, description, userId: req.user.id });
     return res.json(newImage);
 }));
 
