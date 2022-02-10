@@ -38,10 +38,10 @@ export const editImageAC = (image, imageUrl, description) => {
     };
 };
 
-export const removeImageAC = (image) => {
+export const removeImageAC = (imageId) => {
     return {
       type: DELETE_IMAGE,
-      image
+      imageId
     };
 };
 
@@ -97,6 +97,14 @@ export const getSingleImage = (id) => async (dispatch) => {
     return response;
 };
 
+export const removeImage = (image) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${image.id}`, {
+        method: 'DELETE' });
+    const image = await response.json();
+    dispatch(removeImageAC(image.id))
+    return response;
+};
+
 
 /* ----- REDUCER ------ */
 const initialState = { entries: {} }
@@ -115,22 +123,21 @@ const imageReducer = (state = initialState, action)  => {
             newState.entries = { ...newState.entries, [action.newImage.id]: action.newImage }
             return newState;
         }
-        case GET_IMAGE: {
-            newState = { ...state };
-            newState.entries = { [action.image.id]: action.image };
-            return newState;
-        }
+        // case GET_IMAGE: {
+        //     newState = { ...state };
+        //     newState.entries = { [action.image.id]: action.image };
+        //     return newState;
+        // }
         case EDIT_IMAGE: {
             newState = { ...state };
             newState.entries = { ...newState.entries, [action.image.id]: action.image }
             return newState;
         }
-        // }
-        // case DELETE_IMAGE: {
-        //     newState = { ...state };
-        //     delete newState[action.image];
-        //     return newState;
-        // }
+        case DELETE_IMAGE: {
+            newState = { ...state };
+            delete newState[action.imageId];
+            return newState;
+        }
       default:
         return state;
     }

@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom';
+import React from 'react';
 
-const ImageDetail = ({ id, description }) => {
+
+const ImageDetail = ({ id, description, imageUrl }) => {
   return (
-    <li>
-      <NavLink to={`/images/${id}`}>{description}</NavLink>
-    </li>
+      <NavLink to={`/images/${id}`}>
+        <img alt={description} src={`${imageUrl}`} />
+      </NavLink>
   );
 };
 

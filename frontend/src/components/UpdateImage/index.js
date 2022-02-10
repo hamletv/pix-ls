@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import { updateImage } from "../../store/imagesReducer";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { removeImage, updateImage } from "../../store/imagesReducer";
 // import './EditImage.css';
 
 
@@ -13,19 +14,17 @@ const UpdateImage = () => {
     const [description, setDescription] = useState(images?.description);
     const [imageUrl, setImageUrl] = useState(images?.imageUrl);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const image = {
-            description,
-            imageUrl
-        };
+        const image = { description, imageUrl };
 
-        let updatedImage = dispatch(updateImage(image, id));
-        if(updatedImage) history.push('/images')
+        await dispatch(updateImage(image));
+        history.push('/images')
     };
 
-    const cancelUpdate = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
+        await dispatch(removeImage())
         return history.push('/images');
     };
 
@@ -50,7 +49,7 @@ const UpdateImage = () => {
                 name="imageUrl"
                 />
                 <button type="submit" onClick={handleSubmit}>Edit photo</button>
-                <button type="submit" onClick={cancelUpdate}>Cancel edit</button>
+                <button type="submit" onClick={handleDelete}>Delete photo</button>
             </form>
         </div>
     );

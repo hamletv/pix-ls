@@ -9,6 +9,7 @@ import SplashPage from './components/SplashPage/SplashPage';
 import ImageList from './components/ImageList';
 import AddImage from './components/AddImage';
 import UpdateImage from './components/UpdateImage';
+import SingleImage from './components/SingleImage';
 
 
 function App() {
@@ -40,10 +41,13 @@ function App() {
           <ImageList />
         </Route>
         <Route path='/images/:id'>
+          <SingleImage />
+        </Route>
+        <Route path='/images/:id/edit'>
           <UpdateImage />
         </Route>
         <Route>
-          <h1>Page Not Found</h1>
+          <h1>404: Page Not Found</h1>
         </Route>
       </Switch>
     )}
