@@ -6,7 +6,8 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import LoginFormPage from './components/LoginFormPage';
 import SplashPage from './components/SplashPage/SplashPage';
-
+import AllImages from './components/Images/Images';
+import ImageList from './components/ImageList';
 
 function App() {
   const dispatch = useDispatch()
@@ -21,19 +22,19 @@ function App() {
     <Navigation isLoaded={isLoaded} />
     {isLoaded && (
       <Switch>
-        <Route path='/'>
+        <Route exact path='/'>
           <SplashPage />
         </Route>
-        <Route path='/signup'>
+        <Route exact path='/signup'>
           <SignupFormPage />
         </Route>
         <Route path='/login'>
           <LoginFormPage />
         </Route>
-        {/* <Route path='/images'>
-          <AllImages />
+        <Route path='/images'>
+          <ImageList />
         </Route>
-        <Route path='/images/:id'>
+        {/* <Route path='/images/:id'>
           <ImagePage />
         </Route>
         <Route path='/images/new'>
