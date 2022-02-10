@@ -11,14 +11,14 @@ const EDIT_IMAGE = 'images/editImage'
 export const addImageAC = (image) => {
     return {
       type: ADD_IMAGE,
-      payload: { image }
+      image
     };
   };
 
 export const getImagesAC = (images) => {
     return {
       type: GET_IMAGES,
-      payload: { images }
+      images
     };
 };
 
