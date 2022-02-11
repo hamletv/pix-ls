@@ -43,12 +43,8 @@ router.get('/:imageId', asyncHandler (async(req, res, next) => {
 router.put('/:id', asyncHandler (async(req, res) => {
     const id = parseInt(req.params.id, 10);
     const image = await Image.findByPk(id);
-    await image.update({
-        id: req.body.image.id,
-        userId: req.body.image.userId,
-        imageUrl: req.body.image.imageUrl,
-        description: req.body.image.description
-    });
+    const { description, imageUrl } = req.body;
+    await image.update({ description, imageUrl });
     await image.save();
     return res.json(image);
 }))
