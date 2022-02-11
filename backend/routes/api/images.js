@@ -8,19 +8,19 @@ const { Image } = require('../../db/models');
 const { restoreUser } = require('../../utils/auth')
 const router = express.Router();
 
-// router.use(requireAuth);
+router.use(requireAuth);
 
 // get all images
 router.get('/', asyncHandler (async (req, res) => {
     const images = await Image.findAll({});
-    console.log(images)
+    // console.log(images)
     await res.json(images);
 }));
 
 // add image - add restoreUser midware
 router.post('/add', asyncHandler (async (req, res) => {
-    const { imageUrl, description } = req.body;
-    const newImage = await Image.create({ imageUrl, description });
+    const { userId, imageUrl, description } = req.body; //albumId
+    const newImage = await Image.create({ imageUrl, description, userId }); //albumId
     return res.json(newImage);
 }));
 
