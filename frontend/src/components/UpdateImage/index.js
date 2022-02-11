@@ -26,7 +26,7 @@ const UpdateImage = () => {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        await dispatch(removeImage())
+        await dispatch(removeImage(id))
         return history.push('/images');
     };
 

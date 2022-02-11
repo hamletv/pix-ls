@@ -38,10 +38,10 @@ export const editImageAC = (image, imageUrl, description) => {
     };
 };
 
-export const removeImageAC = (image) => {
+export const removeImageAC = (imageId) => {
     return {
       type: DELETE_IMAGE,
-      image
+      imageId
     };
 };
 
@@ -133,7 +133,7 @@ const imageReducer = (state = initialState, action)  => {
         }
         case DELETE_IMAGE: {
             newState = { ...state };
-            delete newState[action.id];
+            delete newState[action.imageId];
             return newState;
         }
       default:
