@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addImage } from "../../store/imagesReducer";
 // import './AddImage.css';
 
@@ -7,6 +7,7 @@ const AddImage = () => {
     const dispatch = useDispatch();
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const userId = useSelector(state => state.session.user.id);
 
     const reset = () => {
         setDescription('');
@@ -17,7 +18,9 @@ const AddImage = () => {
         e.preventDefault();
         const newImage = {
             description,
-            imageUrl
+            imageUrl,
+            userId,
+            // albumId
         };
         dispatch(addImage(newImage));
         reset();
