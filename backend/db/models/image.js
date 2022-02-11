@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
 
     Image.hasMany(models.Comment, {
       as: 'comments',
-      foreignKey: 'imageId'
+      foreignKey: 'imageId',
+      onDelete: 'cascade',
+      hooks: 'true'
     });
   };
   return Image;
