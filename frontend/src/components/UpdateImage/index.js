@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { removeImage, updateImage } from "../../store/imagesReducer";
+import { removeImage, getImages, updateImage } from "../../store/imagesReducer";
 // import './EditImage.css';
 
 
 const UpdateImage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const images = useSelector((state) => Object.values(state.image.images[id]));
+    const imagesObj = useSelector((state) => state.imageState.entries);
+    const images = imagesObj[id];
+    // console.log(images);
     const history = useHistory();
-    const [description, setDescription] = useState(images?.description);
-    const [imageUrl, setImageUrl] = useState(images?.imageUrl);
+    const [description, setDescription] = useState(images?.description || '');
+    const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const image = { description, imageUrl };
+        const image = { description, imageUrl, id };
 
         await dispatch(updateImage(image));
         history.push('/images')
@@ -27,6 +29,17 @@ const UpdateImage = () => {
         await dispatch(removeImage())
         return history.push('/images');
     };
+
+    useEffect(() => {
+        if(images) {
+            setDescription(images.description)
+            setImageUrl(images.imageUrl);
+        }
+    }, [imagesObj]);
+
+    useEffect(() => {
+        dispatch(getImages())
+    }, [dispatch]);
 
     return (
         <div >

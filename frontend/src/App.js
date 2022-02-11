@@ -37,13 +37,13 @@ function App() {
         <Route path='/images/add'>
           <AddImage />
         </Route>
-        <Route path='/images'>
+        <Route exact path='/images'>
           <ImageList />
         </Route>
-        <Route path='/images/:id'>
+        <Route exact path='/images/:id'>
           <SingleImage />
         </Route>
-        <Route path='/images/:id/edit'>
+        <Route exact path='/images/:id/edit'>
           <UpdateImage />
         </Route>
         <Route>
