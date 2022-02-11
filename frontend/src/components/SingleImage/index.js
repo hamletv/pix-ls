@@ -8,6 +8,7 @@ const SingleImage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user);
     const singleImage = useSelector(state => state.imageState.entries[id]);
+    console.log('Single Image', singleImage.id);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -22,7 +23,9 @@ const SingleImage = () => {
           <img src={singleImage?.imageUrl} alt={singleImage?.description} />
         </div>
         <div>
-          <button>Edit</button>
+          <button>
+            <a href={`${singleImage.id}/edit`}>Edit</a>
+          </button>
           <button>Delete</button>
         </div>
       </>
