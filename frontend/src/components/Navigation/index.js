@@ -23,12 +23,18 @@ const Navigation = ({ isLoaded }) => {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    <>
+      <div>
+        <img src='../public/images/pix-ls_logo.jpeg'/>
+      </div>
+      <ul>
+        <li>
+          <NavLink exact to="/">Home</NavLink>
+          <NavLink exact to="/images">Images</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+      </ul>
+    </>
   );
 }
 

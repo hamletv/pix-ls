@@ -16,10 +16,16 @@ const SingleImage = () => {
     }, [dispatch]);
 
     return (
+      <>
         <div>
           <h1>{singleImage?.description}</h1>
           <img src={singleImage?.imageUrl} alt={singleImage?.description} />
         </div>
+        <div>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
+      </>
       );
 };
 
