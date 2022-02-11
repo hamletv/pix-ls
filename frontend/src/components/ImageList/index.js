@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import SingleImage from "../SingleImage";
 import ImageDetail from "../ImageDetail";
 import AddImage from "../AddImage";
@@ -13,10 +13,10 @@ const ImageList = () => {
     console.log('Session user', user.id);
     const imagesObj = useSelector((state) => state.imageState.entries);
     const images = Object.values(imagesObj);
-    console.log('Presenting images', images[0]);
-    console.log('The photographer', user.id);
+    // console.log('Presenting images', images[0]);
+    // console.log('The photographer', user.id);
     const userImages = images.filter(image => image.userId === user.id);
-    console.log('User images', userImages);
+    // console.log('User images', userImages);
 
     useEffect(() => {
         dispatch(getImages());
@@ -25,20 +25,19 @@ const ImageList = () => {
     return (
         <div>
           <h1>Your Images</h1>
-          <ol>
+          <div>
             {images.map(({ id, imageUrl, description }) => (
               <ImageDetail key={id} id={id} imageUrl={imageUrl} description={description} />
             ))}
-          </ol>
+          </div>
 
-          <Switch>
             <Route path="/images/:id">
               <SingleImage images={images} />
             </Route>
             <Route path="/images/add">
               <AddImage />
             </Route>
-          </Switch>
+
         </div>
       );
 }
