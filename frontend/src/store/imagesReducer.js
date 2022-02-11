@@ -95,11 +95,11 @@ export const getSingleImage = (id) => async (dispatch) => {
     return response;
 };
 
-export const removeImage = (image) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/${image.id}`, {
+export const removeImage = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/images/${id}`, {
         method: 'DELETE' });
-    const image = await response.json();
-    dispatch(removeImageAC(image.id))
+    const data = await response.json();
+    dispatch(removeImageAC(id))
     return response;
 };
 
