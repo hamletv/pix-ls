@@ -15,9 +15,9 @@ const Navigation = ({ isLoaded }) => {
 
     sessionLinks = (
       <>
-        {/* <ViewImages /> */}
-        <a href={`/images`}>Images</a>
-        {/* <NavLink exact to="/images">Images</NavLink> */}
+        {/* <a href={`/images`}>Images</a> */}
+        <NavLink exact to="/images">Images</NavLink>
+        <NavLink to="/images/add"><button>Add Image</button></NavLink>
         <ProfileButton user={sessionUser} />
       </>
       );
@@ -33,9 +33,6 @@ const Navigation = ({ isLoaded }) => {
 
   return (
     <>
-      {/* <div className='header'>
-        <img src='../public/images/pix-ls_logo.jpeg'/>
-      </div> */}
       <ul>
         <li>
           <NavLink exact to="/">Home</NavLink>

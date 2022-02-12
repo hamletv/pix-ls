@@ -21,7 +21,7 @@ const UpdateImage = () => {
         const image = { description, imageUrl, id };
 
         await dispatch(updateImage(image));
-        history.push('/images')
+        history.push(`/images/${image.id}`)
     };
 
     const handleDelete = async (e) => {
