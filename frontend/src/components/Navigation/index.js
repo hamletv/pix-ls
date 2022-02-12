@@ -5,21 +5,28 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import DemoUser from './DemoUser';
+import ViewImages from './Images';
 
 const Navigation = ({ isLoaded }) => {
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
+
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
-    );
+      <>
+        {/* <ViewImages /> */}
+        <a href={`/images`}>Images</a>
+        {/* <NavLink exact to="/images">Images</NavLink> */}
+        <ProfileButton user={sessionUser} />
+      </>
+      );
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
         <DemoUser />
-        <NavLink to="/signup">Sign Up</NavLink>
+        <LoginFormModal />
+        <NavLink to="/signup"><button>Sign Up</button></NavLink>
       </>
     );
   }
@@ -32,7 +39,6 @@ const Navigation = ({ isLoaded }) => {
       <ul>
         <li>
           <NavLink exact to="/">Home</NavLink>
-          <NavLink exact to="/images">Images</NavLink>
           {isLoaded && sessionLinks}
         </li>
       </ul>
