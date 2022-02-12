@@ -33,9 +33,9 @@ const Navigation = ({ isLoaded }) => {
 
   return (
     <>
-      <div>
+      {/* <div className='header'>
         <img src='../public/images/pix-ls_logo.jpeg'/>
-      </div>
+      </div> */}
       <ul>
         <li>
           <NavLink exact to="/">Home</NavLink>

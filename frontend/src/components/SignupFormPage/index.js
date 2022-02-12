@@ -29,7 +29,7 @@ function SignupFormPage() {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={handleSubmit} className="form-style">
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -84,7 +84,8 @@ function SignupFormPage() {
             </label>
           </li>
         </ul>
-        <button type="submit">Submit</button>
+        <button className="sign-up
+        " type="submit">Submit</button>
       </form>
     </div>
   );
