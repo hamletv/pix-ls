@@ -30,6 +30,11 @@ const UpdateImage = () => {
         return history.push('/images');
     };
 
+    const handleCancel = async (e) => {
+        e.preventDefault();
+        return history.push(`/images/${images.id}`);
+    };
+
     useEffect(() => {
         if(images) {
             setDescription(images.description)
@@ -63,6 +68,7 @@ const UpdateImage = () => {
                 />
                 <button type="submit" onClick={handleSubmit}>Edit photo</button>
                 <button type="submit" onClick={handleDelete}>Delete photo</button>
+                <button type="submit" onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );
