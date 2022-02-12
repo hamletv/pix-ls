@@ -28,6 +28,11 @@ const AddImage = () => {
         history.push('/images');
     };
 
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push('/images');
+    };
+
     return (
         <div >
             <h1>Add your image</h1>
@@ -46,7 +51,10 @@ const AddImage = () => {
                 placeholder="Image URL"
                 name="imageUrl"
                 />
-                <button type="submit">Add photo</button>
+                <div>
+                    <button type="submit">Add photo</button>
+                    <button type="submit" onClick={handleCancel}>Cancel</button>
+                </div>
             </form>
         </div>
     );
