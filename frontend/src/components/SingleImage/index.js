@@ -26,7 +26,6 @@ const SingleImage = () => {
           <button>
             <a href={`${singleImage.id}/edit`}>Edit</a>
           </button>
-          <button>Delete</button>
         </div>
       </>
       );

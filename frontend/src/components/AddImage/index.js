@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage } from "../../store/imagesReducer";
+import { useHistory } from "react-router-dom";
 // import './AddImage.css';
 
 const AddImage = () => {
@@ -8,6 +9,7 @@ const AddImage = () => {
     const [description, setDescription] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const userId = useSelector(state => state.session.user.id);
+    const history = useHistory();
 
     const reset = () => {
         setDescription('');
@@ -20,10 +22,10 @@ const AddImage = () => {
             description,
             imageUrl,
             userId,
-            // albumId
         };
         dispatch(addImage(newImage));
         reset();
+        history.push('/images');
     };
 
     return (
