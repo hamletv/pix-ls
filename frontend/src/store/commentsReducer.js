@@ -54,7 +54,7 @@ export const getComments = (imageId) => async(dispatch) => {
 
     if(response.ok){
         const comments = await response.json();
-        dispatch(getImagesAC(comments));
+        dispatch(getCommentsAC(comments));
     }
     return response;
 };
@@ -98,7 +98,7 @@ const commentReducer = (state = initialState, action)  => {
             newState.entries = { ...newState.entries, [action.newComment.id]: action.newComment }
             return newState;
         }
-        case EDIT_IMAGE: {
+        case EDIT_COMMENT: {
             newState = { ...state };
             newState.entries = { ...newState.entries, [action.comment.id]: action.comment }
             return newState;
