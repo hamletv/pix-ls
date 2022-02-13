@@ -83,7 +83,7 @@ export const removeComment = (id) => async (dispatch) => {
 
 /* ----- REDUCER ------ */
 const initialState = { entries: {} }
-const commentReducer = (state = initialState, action)  => {
+const commentsReducer = (state = initialState, action)  => {
     let newState;
     switch (action.type) {
         case GET_COMMENTS: {
@@ -114,4 +114,4 @@ const commentReducer = (state = initialState, action)  => {
 };
 
 
-export default commentReducer;
+export default commentsReducer;
