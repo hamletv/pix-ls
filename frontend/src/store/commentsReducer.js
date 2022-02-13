@@ -37,7 +37,7 @@ export const removeCommentAC = (commentId) => {
 
 /* ----- THUNK ------ */
 export const addComment = ({ userId, imageId, comment }) => async(dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}/comments`, {
+    const response = await csrfFetch(`/api/comments/images/${imageId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, imageId, comment })

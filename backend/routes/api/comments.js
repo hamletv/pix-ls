@@ -25,7 +25,7 @@ router.get('/:imageId/comments', asyncHandler (async (req, res) => {
 }));
 
 // add comment - add comment validators
-router.post('/:imageId/comments', asyncHandler (async(req, res) => {
+router.post('/images/:imageId', asyncHandler (async(req, res) => {
     const { userId, imageId, comment } = req.body;
     const { id } = await Comment.create({ userId, imageId, comment });
     const singleCommentObj = await Comment.findByPk(id, { include: User });

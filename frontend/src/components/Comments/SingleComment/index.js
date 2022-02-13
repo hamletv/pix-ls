@@ -50,7 +50,7 @@ const WriteComment = ({ imageId }) => {
                 name="imageUrl"
                 /> */}
                 <div>
-                    <button type="submit">Add comment</button>
+                    <button type="submit" onClick={handleSubmit}>Add comment</button>
                     <button type="submit" onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
