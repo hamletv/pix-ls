@@ -26,18 +26,18 @@ const SingleImage = () => {
           <img src={singleImage?.imageUrl} alt={singleImage?.description} />
         </div>
         <div>
-          {/* <button>
+          <button>
             <a href={`${singleImage.id}/edit`}>Edit</a>
           </button>
           <button>
             <a href={`/images`}>Cancel</a>
-          </button> */}
-          <button onClick={() => setShowModal(true)}>Edit Image</button>
+          </button>
+          {/* <button onClick={() => setShowModal(true)}>Edit Image</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <UpdateImage />
         </Modal>
-      )}
+      )} */}
         </div>
       </>
       );

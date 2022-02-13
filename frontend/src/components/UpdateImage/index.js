@@ -68,7 +68,7 @@ const UpdateImage = () => {
                 />
                 <button type="submit" onClick={handleSubmit}>Edit photo</button>
                 <button type="submit" onClick={handleDelete}>Delete photo</button>
-                {/* <button type="submit" onClick={handleCancel}>Cancel</button> */}
+                <button type="submit" onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );

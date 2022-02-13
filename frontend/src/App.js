@@ -10,6 +10,7 @@ import ImageList from './components/ImageList';
 import AddImage from './components/AddImage';
 import UpdateImage from './components/UpdateImage';
 import SingleImage from './components/SingleImage';
+import AddComment from './components/Comments/SingleComment';
 
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route exact path='/images/:id/edit'>
           <UpdateImage />
+        </Route>
+        <Route exact path='/images/:id/comments'>
+          <AddComment />
         </Route>
         <Route>
           <h1>404: Page Not Found</h1>

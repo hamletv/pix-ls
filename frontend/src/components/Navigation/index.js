@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import './Navigation.css';
+// import './Navigation.css';
 import DemoUser from './DemoUser';
 import ViewImages from './Images';
+
 
 const Navigation = ({ isLoaded }) => {
   const sessionUser = useSelector(state => state.session.user);
@@ -32,12 +33,17 @@ const Navigation = ({ isLoaded }) => {
 
   return (
     <>
-      <ul>
-        <li>
-          <NavLink exact to="/">Home</NavLink>
-          {isLoaded && sessionLinks}
-        </li>
-      </ul>
+      <nav>
+        <div>
+          <img src='../../../public/images/pix-ls_logo.jpeg' />
+        </div>
+        <ul>
+          <li>
+            <NavLink exact to="/">Home</NavLink>
+            {isLoaded && sessionLinks}
+          </li>
+        </ul>
+      </nav>
     </>
   );
 }
