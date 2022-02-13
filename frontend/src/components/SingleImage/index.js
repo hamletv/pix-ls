@@ -2,22 +2,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Route, useHistory, useParams } from "react-router-dom";
 import { getSingleImage } from "../../store/imagesReducer";
-import { getComments } from "../../store/commentsReducer";
-// import UpdateImage from "../UpdateImage";
-// import LoginForm from "../LoginFormModal/LoginForm";
-// import { Modal } from "../../context/Modal";
+import { getComments, removeComment, updateComment } from "../../store/commentsReducer";
 import WriteComment from '../Comments/SingleComment/index'
 import './SingleImage.css'
 
 const SingleImage = () => {
-    // const [showModal, setShowModal] = useState(false);
     const [loadComment, setLoadComment] = useState(false);
     const { id } = useParams();
     const user = useSelector(state => state.session.user);
     const singleImage = useSelector(state => state.imageState.entries[id]);
     const comments = useSelector(state => state.commentState.entries);
     const commentArray = Object.values(comments);
-    // const filteredComments = commentArray.filter(({ imageId }) => imageId === id);
+    const [commentMsg, setCommentMsg] = useState(comments?.comment || '');
     console.log('The comments', commentArray);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -32,8 +28,17 @@ const SingleImage = () => {
       setLoadComment(!loadComment);
     }
 
-    const editComment = (e) => {
+    const editComment = async (e) => {
       e.preventDefault();
+      // const editedComment = { comment, }
+      // await dispatch(updateComment(comment));
+      // history.push(`/images/${comment.id}`);
+    }
+
+    const deleteComment = (e, id) => {
+      e.preventDefault();
+      dispatch(removeComment(id))
+      // return history.push(`${singleImage?.id}`)
     }
 
     return (
@@ -73,7 +78,7 @@ const SingleImage = () => {
               <p key={id}>{comment}</p>
               {(user.id === userId) && (<button className="function-button" onClick={editComment}>Edit
               </button>)}
-              {(user.id === userId) && (<button className="function-button" onClick={editComment}>Delete
+              {(user.id === userId) && (<button className="function-button" onClick={(e) => deleteComment(e, id)}>Delete
               </button>)}
             </div>
               ))}
