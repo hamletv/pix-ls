@@ -89,8 +89,8 @@ export const getSingleImage = (id) => async (dispatch) => {
         body: JSON.stringify()
     });
     if(response.ok){
-        const { image } = await response.json();
-        dispatch(getImageAC(image));
+        const image = await response.json();
+        dispatch(editImageAC(image));
     }
     return response;
 };

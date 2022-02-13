@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Route, useHistory, useParams } from "react-router-dom";
 import { getSingleImage } from "../../store/imagesReducer";
-// import { addComment } from "../../store/commentsReducer";
+import { getComments } from "../../store/commentsReducer";
 // import UpdateImage from "../UpdateImage";
 // import LoginForm from "../LoginFormModal/LoginForm";
 // import { Modal } from "../../context/Modal";
@@ -15,22 +15,25 @@ const SingleImage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user);
     const singleImage = useSelector(state => state.imageState.entries[id]);
-    const comment = useSelector(state => state.commentState.entries[id]);
-    console.log('The comment', comment);
+    const comments = useSelector(state => state.commentState.entries);
+    const commentArray = Object.values(comments);
+    // const filteredComments = commentArray.filter(({ imageId }) => imageId === id);
+    console.log('The comments', commentArray);
     const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
       dispatch(getSingleImage(id))
+      dispatch(getComments(id))
     }, [dispatch]);
-
-    // useEffect(() => {
-    //   dispatch(addComment(comment))
-    // }, [dispatch]);
 
     const openComment = (e) => {
       e.preventDefault();
       setLoadComment(!loadComment);
+    }
+
+    const editComment = (e) => {
+      e.preventDefault();
     }
 
     return (
@@ -63,6 +66,17 @@ const SingleImage = () => {
               </button>
           </div>)}
           {loadComment && (<WriteComment imageId={singleImage?.id} />)}
+        </div>
+        <div>
+          {commentArray?.map(({ comment, id, userId }) => (
+            <div>
+              <p key={id}>{comment}</p>
+              {(user.id === userId) && (<button className="function-button" onClick={editComment}>Edit
+              </button>)}
+              {(user.id === userId) && (<button className="function-button" onClick={editComment}>Delete
+              </button>)}
+            </div>
+              ))}
         </div>
       </>
       );

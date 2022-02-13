@@ -25,10 +25,10 @@ router.post('/add', asyncHandler (async (req, res) => {
 }));
 
 // get image
-router.get('/:imageId', asyncHandler (async(req, res, next) => {
-    const imageId = parseInt(req.params.imageId, 10);
+router.get('/:id', asyncHandler (async(req, res, next) => {
+    const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-
+    console.log(image);
     if(!image) {
         const err = Error('Image does not exist');
         err.status = 400;
