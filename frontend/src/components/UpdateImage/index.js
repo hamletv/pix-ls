@@ -11,7 +11,6 @@ const UpdateImage = () => {
     const { id } = useParams();
     const imagesObj = useSelector((state) => state.imageState.entries);
     const images = imagesObj[id];
-    // console.log(images);
     const history = useHistory();
     const [description, setDescription] = useState(images?.description || '');
     const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
