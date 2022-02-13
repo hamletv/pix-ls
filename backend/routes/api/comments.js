@@ -5,7 +5,7 @@ const { requireAuth } = require('../../utils/auth');
 const { Comment, User } = require('../../db/models');
 const router = express.Router();
 
-// router.use(requireAuth);
+router.use(requireAuth);
 
 // const commentValidators = [
 //     check('content')
