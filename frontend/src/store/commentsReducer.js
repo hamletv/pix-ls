@@ -83,34 +83,29 @@ export const removeComment = (id) => async (dispatch) => {
 
 /* ----- REDUCER ------ */
 const initialState = { entries: {} }
-const imageReducer = (state = initialState, action)  => {
+const commentReducer = (state = initialState, action)  => {
     let newState;
     switch (action.type) {
-        case GET_IMAGES: {
+        case GET_COMMENTS: {
             const newState = { ...state };
             const entries = {};
-            action.images.forEach(image => (entries[image.id] = image));
+            action.comments.forEach(comment => (entries[comment.id] = comment));
             newState.entries = entries;
             return newState;
         }
-        case ADD_IMAGE: {
+        case ADD_COMMENT: {
             newState = { ...state };
-            newState.entries = { ...newState.entries, [action.newImage.id]: action.newImage }
+            newState.entries = { ...newState.entries, [action.newComment.id]: action.newComment }
             return newState;
         }
-        // case GET_IMAGE: {
-        //     newState = { ...state };
-        //     newState.entries = { [action.image.id]: action.image };
-        //     return newState;
-        // }
         case EDIT_IMAGE: {
             newState = { ...state };
-            newState.entries = { ...newState.entries, [action.image.id]: action.image }
+            newState.entries = { ...newState.entries, [action.comment.id]: action.comment }
             return newState;
         }
-        case DELETE_IMAGE: {
+        case DELETE_COMMENT: {
             newState = { ...state };
-            delete newState[action.imageId];
+            delete newState[action.commentId];
             return newState;
         }
       default:
@@ -119,4 +114,4 @@ const imageReducer = (state = initialState, action)  => {
 };
 
 
-export default imageReducer;
+export default commentReducer;
