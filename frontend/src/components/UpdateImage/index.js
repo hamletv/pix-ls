@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { removeImage, getImages, updateImage } from "../../store/imagesReducer";
-// import './EditImage.css';
+import './UpdateImage.css';
 
 
 const UpdateImage = () => {
@@ -66,9 +66,19 @@ const UpdateImage = () => {
                 placeholder="Image URL"
                 name="imageUrl"
                 />
-                <button type="submit" onClick={handleSubmit}>Edit photo</button>
-                <button type="submit" onClick={handleDelete}>Delete photo</button>
-                <button type="submit" onClick={handleCancel}>Cancel</button>
+                <div>
+                    <ul>
+                        <li>
+                            <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
+                        </li>
+                        <li>
+                            <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
+                        </li>
+                        <li>
+                            <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
+                        </li>
+                    </ul>
+                </div>
             </form>
         </div>
     );

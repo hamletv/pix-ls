@@ -13,7 +13,7 @@ const DemoUser = () => {
         dispatch(sessionActions.login({credential,password}))
     }
     return (
-        <button id='demo_button' onClick={handleClick} type="submit">Demo</button>
+        <button id='demo_button' onClick={handleClick} type="submit" className='function-button'>Demo</button>
     )
 }
 export default DemoUser;
