@@ -15,7 +15,7 @@ router.use(requireAuth);
 // ];
 
 // get comments
-router.get('/:imageId/comments', asyncHandler (async (req, res) => {
+router.get('/images/:imageId', asyncHandler (async (req, res) => {
     const imageId = parseInt(req.params.imageId, 10);
     const comments = await Comment.findAll({
         where: { imageId },
@@ -33,7 +33,7 @@ router.post('/images/:imageId', asyncHandler (async(req, res) => {
 }));
 
 // edit comment - add comment validators
-router.put('/:commentId', asyncHandler (async(req, res) => {
+router.put('/images/:commentId', asyncHandler (async(req, res) => {
     const id = parseInt(req.params.commentId, 10);
     const { comment } = req.body;
     const singleCommentObj = await Comment.findByPk(id, { include: User });
@@ -42,7 +42,7 @@ router.put('/:commentId', asyncHandler (async(req, res) => {
 }));
 
 // delete comment
-router.delete('/:commentId', asyncHandler (async(req, res) => {
+router.delete('/images/:commentId', asyncHandler (async(req, res) => {
     const id = parseInt(req.params.commentId, 10);
     const comment = await Comment.findByPk(id);
     await comment.destroy();

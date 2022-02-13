@@ -50,7 +50,7 @@ export const addComment = ({ userId, imageId, comment }) => async(dispatch) => {
 };
 
 export const getComments = (imageId) => async(dispatch) => {
-    const response = await csrfFetch(`/api/images/${imageId}/comments`);
+    const response = await csrfFetch(`/api/comments/images/${imageId}`);
 
     if(response.ok){
         const comments = await response.json();
@@ -59,8 +59,8 @@ export const getComments = (imageId) => async(dispatch) => {
     return response;
 };
 
-export const updateImage = (comment) => async(dispatch) => {
-    const response = await csrfFetch(`/api/images/comments/${comment.id}`, {
+export const updateComment = (comment) => async(dispatch) => {
+    const response = await csrfFetch(`/api/comments/images/${comment.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ comment })
@@ -73,7 +73,7 @@ export const updateImage = (comment) => async(dispatch) => {
 };
 
 export const removeComment = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/images/comments/${id}`, {
+    const response = await csrfFetch(`/api/comments/images/${id}`, {
         method: 'DELETE' });
     const data = await response.json();
     dispatch(removeCommentAC(id))
