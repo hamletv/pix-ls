@@ -15,7 +15,6 @@ const Navigation = ({ isLoaded }) => {
 
     sessionLinks = (
       <>
-        {/* <a href={`/images`}>Images</a> */}
         <NavLink exact to="/images">Images</NavLink>
         <NavLink to="/images/add"><button>Add Image</button></NavLink>
         <ProfileButton user={sessionUser} />

@@ -21,25 +21,24 @@ router.get('/:imageId/comments', asyncHandler (async (req, res) => {
         where: { imageId },
         include: User
     });
-    res.json(comments);
+    return res.json(comments);
 }));
 
 // add comment - add comment validators
 router.post('/:imageId/comments', asyncHandler (async(req, res) => {
     const { userId, imageId, comment } = req.body;
     const { id } = await Comment.create({ userId, imageId, comment });
-    const imageComment = await Comment.findByPk(id);
-    res.json(imageComment);
+    const singleCommentObj = await Comment.findByPk(id, { include: User });
+    return res.json(singleCommentObj);
 }));
 
 // edit comment - add comment validators
 router.put('/:commentId', asyncHandler (async(req, res) => {
     const id = parseInt(req.params.commentId, 10);
     const { comment } = req.body;
-    const singleComment = await Comment.findByPk(id, { include: User });
-
-    await singleComment.update({ comment });
-    res.json(singleComment);
+    const singleCommentObj = await Comment.findByPk(id, { include: User });
+    await singleCommentObj.update({ comment });
+    return res.json(singleCommentObj);
 }));
 
 // delete comment
