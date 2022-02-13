@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Image.belongsTo(models.Album, {
-      as: 'albums',
+      // as: 'albums',
       foreignKey: 'albumId'
     });
 

@@ -28,7 +28,7 @@ router.get('/:imageId/comments', asyncHandler (async (req, res) => {
 router.post('/images/:imageId', asyncHandler (async(req, res) => {
     const { userId, imageId, comment } = req.body;
     const { id } = await Comment.create({ userId, imageId, comment });
-    const singleCommentObj = await Comment.findByPk(id, { include: User, as: 'users' });
+    const singleCommentObj = await Comment.findByPk(id, { include: User });
     return res.json(singleCommentObj);
 }));
 
