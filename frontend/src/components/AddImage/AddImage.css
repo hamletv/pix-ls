@@ -23,3 +23,26 @@
 	border-radius: 3px;
 	border: 1px solid black;
 }
+
+.form-error {
+    font-family: 'Monserrat', sans-serif;
+    margin: auto;
+    margin-top: 12px;
+    max-width: 450px;
+    text-align: center;
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.form-error ul {
+    list-style-type: none;
+    text-transform: none;
+}
+
+.right-form ul li {
+    display: inline-flex;
+    padding: 5px;
+    margin-bottom: -25px;
+}
