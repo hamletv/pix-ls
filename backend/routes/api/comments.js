@@ -34,10 +34,11 @@ router.post('/images/:imageId', asyncHandler (async(req, res) => {
 
 // edit comment - add comment validators
 router.put('/images/:commentId', asyncHandler (async(req, res) => {
-    const id = parseInt(req.params.commentId, 10);
-    const { comment } = req.body;
+    // const id = parseInt(req.params.commentId, 10);
+    const { comment, userId, imageId, id } = req.body;
+    console.log('the update backend route', req.body)
+    await Comment.update({ comment, userId, imageId }, { where: { id }});
     const singleCommentObj = await Comment.findByPk(id, { include: User });
-    await singleCommentObj.update({ comment });
     return res.json(singleCommentObj);
 }));
 

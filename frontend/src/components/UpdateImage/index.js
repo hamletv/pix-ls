@@ -12,7 +12,6 @@ const UpdateImage = () => {
     const imagesObj = useSelector((state) => state.imageState.entries);
     const user = useSelector(state => state.session.user);
     const images = imagesObj[id];
-    // console.log(images);
     const history = useHistory();
     const [description, setDescription] = useState(images?.description || '');
     const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
@@ -20,7 +19,6 @@ const UpdateImage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const image = { description, imageUrl, id };
-
         await dispatch(updateImage(image));
         history.push(`/images/${image.id}`)
     };
@@ -48,10 +46,14 @@ const UpdateImage = () => {
     }, [dispatch]);
 
     return (
+        <>
+        <div className="headline-container">
+            <h1>- Edit your image -</h1>
+        </div>
         <div >
-            <h1>Edit your image</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-style">
                 <input
+                className="field-style field-full align-none"
                 type="text"
                 required
                 onChange={(e) => setDescription(e.target.value)}
@@ -60,6 +62,7 @@ const UpdateImage = () => {
                 name="description"
                 />
                 <input
+                className="field-style field-full align-none"
                 type="text"
                 required
                 onChange={(e) => setImageUrl(e.target.value)}
@@ -67,19 +70,22 @@ const UpdateImage = () => {
                 placeholder="Image URL"
                 name="imageUrl"
                 />
-                <ul>
-                    <li>
-                        <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
-                    </li>
-                    <li>
-                        <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
-                    </li>
-                    <li>
-                        <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
-                    </li>
-                </ul>
+                <div className="right-form">
+                    <ul>
+                        <li>
+                            <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
+                        </li>
+                        <li>
+                            <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
+                        </li>
+                        <li>
+                            <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
+                        </li>
+                    </ul>
+                </div>
             </form>
         </div>
+        </>
     );
 };
 
