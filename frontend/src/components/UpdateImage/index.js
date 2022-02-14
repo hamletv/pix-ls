@@ -15,6 +15,7 @@ const UpdateImage = () => {
     const history = useHistory();
     const [description, setDescription] = useState(images?.description || '');
     const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +36,16 @@ const UpdateImage = () => {
     };
 
     useEffect(() => {
+        const validationErrors = [];
+
+        if(description.length < 3) validationErrors.push('Please give a detailed description of your image.');
+        if(imageUrl.length < 0) validationErrors.push('Please enter a valid url');
+        if(!imageUrl.includes('http')) validationErrors.push('Your url must include http or https prefix.');
+         setErrors(validationErrors)
+
+    },[description, imageUrl])
+
+    useEffect(() => {
         if(images) {
             setDescription(images.description)
             setImageUrl(images.imageUrl);
@@ -51,6 +62,11 @@ const UpdateImage = () => {
             <h1>- Edit your image -</h1>
         </div>
         <div >
+        <div className="form-error">
+                    <ul>
+                        {errors.map(error => (<li key={error}>{error}</li>))}
+                    </ul>
+                </div>
             <form onSubmit={handleSubmit} className="form-style">
                 <input
                 className="field-style field-full align-none"
@@ -73,7 +89,7 @@ const UpdateImage = () => {
                 <div className="right-form">
                     <ul>
                         <li>
-                            <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
+                            <button type="submit" onClick={handleSubmit} className="function-button" disabled={errors.length > 0}>Edit photo</button>
                         </li>
                         <li>
                             <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
