@@ -12,7 +12,7 @@ const AddImage = () => {
     const history = useHistory();
     const [errors, setErrors] = useState([]);
 
-    useEffect(() =>{
+    useEffect(() => {
         const validationErrors = [];
 
         if(description.length < 3) validationErrors.push('Please give a detailed description of your image.');

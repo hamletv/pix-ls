@@ -72,7 +72,7 @@ const SingleImage = () => {
           </div>)}
           {loadComment && (<WriteComment imageId={singleImage?.id} />)}
         </div>
-        <div>
+        <div className="form-container">
           {commentArray?.map(({ comment, id, userId }) => (
             <div>
               <p key={id}>{comment}</p>

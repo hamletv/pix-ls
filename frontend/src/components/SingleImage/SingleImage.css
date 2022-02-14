@@ -11,15 +11,16 @@
     /* padding-bottom: 10px; */
 }
 
-/* .image-container img {
+.image-container img {
     display: block;
     margin: 0 auto;
     max-width: 450px;
 	padding: 30px;
 	margin: 50px auto;
 	border-radius: 3px;
-	border: 1px solid black;
-} */
+	border: 1px solid white;
+    box-shadow: crimson;
+}
 
 /* .form-style {
 	max-width: 450px;
