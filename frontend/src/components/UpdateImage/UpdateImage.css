@@ -8,3 +8,20 @@
     background-color: #fb1873;
     border: none;
 }
+
+.headline-container > h1 {
+    margin-top: 30px;
+    font-family: 'Monserrat', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    text-align: center;
+    color: black;
+    padding-bottom: 10px;
+}
+
+.form-style ul li .field-style {
+    box-sizing: border-box;
+    padding: 8px;
+    outline: none;
+    border: 1px solid #fb1873;
+}

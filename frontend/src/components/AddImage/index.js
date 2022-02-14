@@ -65,10 +65,12 @@ const AddImage = () => {
                         placeholder="Description"
                         name="description"
                         className="field-style field-full align-none"
+                        required
                         />
                     </li>
                     <li>
                         <input
+                        required
                         type="text"
                         onChange={(e) => setImageUrl(e.target.value)}
                         value={imageUrl}
