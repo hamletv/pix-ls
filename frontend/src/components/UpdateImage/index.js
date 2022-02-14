@@ -10,7 +10,9 @@ const UpdateImage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const imagesObj = useSelector((state) => state.imageState.entries);
+    const user = useSelector(state => state.session.user);
     const images = imagesObj[id];
+    // console.log(images);
     const history = useHistory();
     const [description, setDescription] = useState(images?.description || '');
     const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
@@ -65,19 +67,17 @@ const UpdateImage = () => {
                 placeholder="Image URL"
                 name="imageUrl"
                 />
-                <div>
-                    <ul>
-                        <li>
-                            <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
-                        </li>
-                        <li>
-                            <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
-                        </li>
-                        <li>
-                            <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
-                        </li>
-                    </ul>
-                </div>
+                <ul>
+                    <li>
+                        <button type="submit" onClick={handleSubmit} className="function-button">Edit photo</button>
+                    </li>
+                    <li>
+                        <button className="function-button" type="submit" onClick={handleDelete}>Delete photo</button>
+                    </li>
+                    <li>
+                        <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
+                    </li>
+                </ul>
             </form>
         </div>
     );
