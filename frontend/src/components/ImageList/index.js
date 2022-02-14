@@ -23,9 +23,9 @@ const ImageList = () => {
     }, [dispatch]);
 
     return (
-        <div>
-          <h1>Your Images</h1>
-          <div>
+        <div className="headline">
+          <h1>- Explore Images -</h1>
+          <div className="image-container">
             {images.map(({ id, imageUrl, description }) => (
               <ImageDetail key={id} id={id} imageUrl={imageUrl} description={description} />
             ))}

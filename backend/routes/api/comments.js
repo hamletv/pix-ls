@@ -1,5 +1,5 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { validateComment, validateEditComment } = require('../../utils/validation');
 const asyncHandler = require('express-async-handler');
 const { requireAuth } = require('../../utils/auth');
 const { Comment, User } = require('../../db/models');
@@ -7,12 +7,6 @@ const router = express.Router();
 
 router.use(requireAuth);
 
-// const commentValidators = [
-//     check('content')
-//       .exists({ checkFalsy: true})
-//       .withMessage('Please provide content for your comment.'),
-//     handleValidationErrors,
-// ];
 
 // get comments
 router.get('/images/:imageId', asyncHandler (async (req, res) => {
@@ -34,7 +28,6 @@ router.post('/images/:imageId', asyncHandler (async(req, res) => {
 
 // edit comment - add comment validators
 router.put('/images/:commentId', asyncHandler (async(req, res) => {
-    // const id = parseInt(req.params.commentId, 10);
     const { comment, userId, imageId, id } = req.body;
     console.log('the update backend route', req.body)
     await Comment.update({ comment, userId, imageId }, { where: { id }});

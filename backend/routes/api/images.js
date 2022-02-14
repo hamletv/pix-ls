@@ -1,8 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { handleValidationErrors } = require('../../utils/validation');
+const { validateAddImage, validateUpdateImage } = require('../../utils/validation');
 const { User } = require('../../db/models');
 const { Image } = require('../../db/models');
 const { restoreUser } = require('../../utils/auth')
@@ -28,7 +27,6 @@ router.post('/add', asyncHandler (async (req, res) => {
 router.get('/:id', asyncHandler (async(req, res, next) => {
     const imageId = parseInt(req.params.id, 10);
     const image = await Image.findByPk(imageId);
-    // console.log(image);
     if(!image) {
         const err = Error('Image does not exist');
         err.status = 400;

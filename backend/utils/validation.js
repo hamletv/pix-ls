@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const { check } = require('express-validator')
 
 
 const handleValidationErrors = (req, res, next) => {
@@ -17,5 +18,39 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
+const image = check('imageUrl').notEmpty().isURL().withMessage('Enter a url including http or https prefix.');
+const description = check('description').notEmpty().withMessage('Add image description.');
+const editImage = check('image.imageUrl').notEmpty().isURL().withMessage('Enter new url including https or https prefix.');
+const editDescription = check('image.description').notEmpty().withMessage('Enter new description.');
+const comment = check('comment').notEmpty().withMessage('Please enter your comment');
+const editComment = check('comment.comment').notEmpty().withMessage('Please enter your comment')
 
-module.exports = { handleValidationErrors };
+const validateAddImage = [
+    image,
+    description,
+    handleValidationErrors
+];
+
+const validateUpdateImage = [
+    editImage,
+    editDescription,
+    handleValidationErrors
+];
+
+const validateComment = [
+    comment,
+    handleValidationErrors
+]
+
+const validateEditComment = [
+    editComment,
+    handleValidationErrors
+]
+
+module.exports = {
+    handleValidationErrors,
+    validateAddImage,
+    validateUpdateImage,
+    validateComment,
+    validateEditComment
+ };
