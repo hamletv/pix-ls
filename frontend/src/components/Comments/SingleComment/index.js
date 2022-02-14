@@ -42,13 +42,6 @@ const WriteComment = ({ imageId }) => {
                 placeholder="Add your comment here"
                 name="comment"
                 />
-                {/* <input
-                type="text"
-                onChange={(e) => setImageUrl(e.target.value)}
-                value={imageUrl}
-                placeholder="Image URL"
-                name="imageUrl"
-                /> */}
                 <div>
                     <button type="submit" onClick={handleSubmit}>Add comment</button>
                     <button type="submit" onClick={handleCancel}>Cancel</button>

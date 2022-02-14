@@ -12,7 +12,6 @@ const UpdateImage = () => {
     const imagesObj = useSelector((state) => state.imageState.entries);
     const user = useSelector(state => state.session.user);
     const images = imagesObj[id];
-    // console.log(images);
     const history = useHistory();
     const [description, setDescription] = useState(images?.description || '');
     const [imageUrl, setImageUrl] = useState(images?.imageUrl || '');
@@ -20,7 +19,6 @@ const UpdateImage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const image = { description, imageUrl, id };
-
         await dispatch(updateImage(image));
         history.push(`/images/${image.id}`)
     };

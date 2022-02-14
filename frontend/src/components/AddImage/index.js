@@ -27,14 +27,14 @@ const AddImage = () => {
         setImageUrl('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newImage = {
             description,
             imageUrl,
             userId,
         };
-        dispatch(addImage(newImage));
+        await dispatch(addImage(newImage));
         reset();
         history.push('/images');
     };

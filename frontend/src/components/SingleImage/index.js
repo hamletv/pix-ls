@@ -5,6 +5,7 @@ import { getSingleImage } from "../../store/imagesReducer";
 import { getComments, removeComment, updateComment } from "../../store/commentsReducer";
 import WriteComment from '../Comments/SingleComment/index'
 import './SingleImage.css'
+import EditComment from "../Comments/SingleComment/EditComment";
 
 const SingleImage = () => {
     const [loadComment, setLoadComment] = useState(false);
@@ -13,8 +14,6 @@ const SingleImage = () => {
     const singleImage = useSelector(state => state.imageState.entries[id]);
     const comments = useSelector(state => state.commentState.entries);
     const commentArray = Object.values(comments);
-    // const [commentMsg, setCommentMsg] = useState(comments?.comment || '');
-    // console.log('The comments', commentArray);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ const SingleImage = () => {
 
     const editComment = async (e) => {
       e.preventDefault();
-      // const editedComment = { comment, }
+      // const editedComment = { comment }
       // await dispatch(updateComment(comment));
       // history.push(`/images/${comment.id}`);
     }
@@ -51,7 +50,7 @@ const SingleImage = () => {
         <div>
           <ul>
             <li>
-              {user.id === singleImage.userId &&
+              {user.id === singleImage?.userId &&
               (<button className="function-button" onClick={(e) => history.push(`${singleImage?.id}/edit`)}>Edit
               </button>)
               }
@@ -77,10 +76,11 @@ const SingleImage = () => {
           {commentArray?.map(({ comment, id, userId }) => (
             <div>
               <p key={id}>{comment}</p>
-              {(user.id === userId) && (<button className="function-button" onClick={editComment}>Edit
-              </button>)}
+              {(user.id === userId) && (<EditComment comment={comment} commentId={id} userId={userId} />
+              )}
               {(user.id === userId) && (<button className="function-button" onClick={(e) => deleteComment(e, id)}>Delete
               </button>)}
+
             </div>
               ))}
         </div>
