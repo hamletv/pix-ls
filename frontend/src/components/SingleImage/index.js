@@ -13,8 +13,8 @@ const SingleImage = () => {
     const singleImage = useSelector(state => state.imageState.entries[id]);
     const comments = useSelector(state => state.commentState.entries);
     const commentArray = Object.values(comments);
-    const [commentMsg, setCommentMsg] = useState(comments?.comment || '');
-    console.log('The comments', commentArray);
+    // const [commentMsg, setCommentMsg] = useState(comments?.comment || '');
+    // console.log('The comments', commentArray);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -38,7 +38,6 @@ const SingleImage = () => {
     const deleteComment = (e, id) => {
       e.preventDefault();
       dispatch(removeComment(id))
-      // return history.push(`${singleImage?.id}`)
     }
 
     return (
@@ -52,8 +51,10 @@ const SingleImage = () => {
         <div>
           <ul>
             <li>
-              <button className="function-button" onClick={(e) => history.push(`${singleImage?.id}/edit`)}>Edit
-              </button>
+              {user.id === singleImage.userId &&
+              (<button className="function-button" onClick={(e) => history.push(`${singleImage?.id}/edit`)}>Edit
+              </button>)
+              }
             </li>
             <li>
               <button onClick={(e) => history.push('/images')}className="function-button">
