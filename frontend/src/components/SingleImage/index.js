@@ -27,12 +27,10 @@ const SingleImage = () => {
       setLoadComment(!loadComment);
     }
 
-    const editComment = async (e) => {
-      e.preventDefault();
-      // const editedComment = { comment }
-      // await dispatch(updateComment(comment));
-      // history.push(`/images/${comment.id}`);
-    }
+    // const cancelComment = async (e) => {
+    //   e.preventDefault();
+    //   setLoadComment(!loadComment);
+    // }
 
     const deleteComment = (e, id) => {
       e.preventDefault();
