@@ -38,7 +38,8 @@ const WriteComment = ({ imageId }) => {
 
     const handleCancel = (e) => {
         e.preventDefault();
-        history.push(`/images/${imageId}`);
+        history.push(`/images`);
+
     };
 
     return (
@@ -63,7 +64,7 @@ const WriteComment = ({ imageId }) => {
                 />
                 <div>
                     <button className="function-button" type="submit" onClick={handleSubmit} disabled={errors.length > 0}>Add comment</button>
-                    {/* <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button> */}
+                    <button className="function-button" type="submit" onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,30 @@
+/* html,body{
+    padding:0;
+    margin:0;
+}
+.image-container {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    align-items: center;
+    justify-items: center;
+    height: 95vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    display: grid;
+    background-size: cover;
+}
+
+.background {
+    background-size: cover;
+    background-image: url(https://b.rgbimg.com/users/o/oe/oeildenuit/600/2dRSn9M.jpg);
+    display: flex;
+    position: fixed;
+    background-position: center;
+    width: 100%;
+    background-repeat: no-repeat;
+    align-items: center;
+    height: 95%;
+    padding: 0 60px;
+} */
