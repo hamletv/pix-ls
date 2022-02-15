@@ -8,14 +8,11 @@ import { useEffect } from "react";
 const EditComment = ({ comment, commentId, userId }) => {
     const dispatch = useDispatch();
     const { id } = useParams()
-
     const [updatedComment, setUpdateComment] = useState(comment);
     const [open, showForm] = useState(false);
     const history = useHistory();
     const [errors, setErrors] = useState([]);
-    // const reset = () => {
-    //     setComment('');
-    // };
+
     useEffect(() => {
         const validationErrors = [];
 
@@ -28,9 +25,9 @@ const EditComment = ({ comment, commentId, userId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const comment = { comment: updatedComment, imageId: id , userId, id: commentId };
+        console.log('This is a comment', comment);
         const response = await dispatch(updateComment(comment));
         if(response){showForm(!open)}
-        // history.push(`/images/${image.id}`)
     };
 
     const toggleForm = (e) => {
@@ -40,7 +37,7 @@ const EditComment = ({ comment, commentId, userId }) => {
 
     const handleCancel = (e) => {
         e.preventDefault();
-        // history.push(`/images/${imageId}`);
+        showForm(!open)
     };
 
     return (
@@ -58,8 +55,7 @@ const EditComment = ({ comment, commentId, userId }) => {
                 <input
                 type="textarea"
                 onChange={(e) => setUpdateComment(e.target.value)}
-                // value={comment}
-                // placeholder="Add your comment here"
+                placeholder="Add your comment here"
                 name="comment"
                 />
                 <div>
